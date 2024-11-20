@@ -35,7 +35,7 @@ AFy Forecast adalah aplikasi web ramalan zodiak dan tarot yang ditenagai oleh AI
 
 1. Clone repository
 bash
-git clone https://github.com/yourusername/forecast-web.git
+git clone https://github.com/AkmalFirliyanto/AFyForecast.git
 cd forecast-web
 
 2. Install dependencies
@@ -107,9 +107,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📞 Contact
 
-Your Name - [@yourusername](https://instagram.com//akmlfy_)
+Your Name - [@akmlfy_](https://instagram.com//akmlfy_)
 
-Project Link: [https://github.com/yourusername/forecast-web](https://github.com/yourusername/forecast-web)
+Project Link: https://github.com/AkmalFirliyanto/AFyForecast.git
 
 ## 🙏 Acknowledgments
 
@@ -121,4 +121,4 @@ Project Link: [https://github.com/yourusername/forecast-web](https://github.com/
 
 ---
 
-Made with ❤️ by [Your Name](https://github.com/yourusername)
+Made with ❤️ by Akmal (https://github.com/akmalfirliyanto)

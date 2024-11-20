@@ -137,10 +137,10 @@ export default function TarotForecast() {
     const shareText = language === 'id'
       ? `🔮 ${translations[language].myTarotReading}:\n\n${cards.map((card, i) => 
         `${i + 1}. ${card.name[language]} (${card.position === 'upright' ? translations[language].upright : translations[language].reversed})`
-      ).join('\n')}\n\n${aiInterpretation}\n\n${translations[language].shareMessage}\nhttps://afy-forecast.vercel.app`
+      ).join('\n')}\n\n${aiInterpretation}\n\n${translations[language].shareMessage}\nhttps://afyforecast.vercel.app`
       : `🔮 ${translations[language].myTarotReading}:\n\n${cards.map((card, i) => 
         `${i + 1}. ${card.name[language]} (${card.position === 'upright' ? translations[language].upright : translations[language].reversed})`
-      ).join('\n')}\n\n${aiInterpretation}\n\n${translations[language].shareMessage}\nhttps://afy-forecast.vercel.app`;
+      ).join('\n')}\n\n${aiInterpretation}\n\n${translations[language].shareMessage}\nhttps://afyforecast.vercel.app`;
 
     if (navigator.share) {
       try {

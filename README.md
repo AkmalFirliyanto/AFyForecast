@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AFy Forecast 🌟
 
-## Getting Started
+AFy Forecast adalah aplikasi web ramalan zodiak dan tarot yang ditenagai oleh AI. Aplikasi ini menyediakan ramalan harian yang personal dan pembacaan tarot yang mendalam dalam bahasa Indonesia dan Inggris.
 
-First, run the development server:
+## ✨ Fitur
 
-```bash
+- 🔮 Ramalan zodiak harian
+- 🎴 Pembacaan tarot
+- 🌏 Dukungan multi-bahasa (ID/EN)
+- 🔒 Autentikasi pengguna
+- 📱 Responsif di semua perangkat
+- 🔄 Berbagi ramalan di media sosial
+
+## 🛠 Tech Stack
+
+- **Frontend**: Next.js 14, React, TypeScript
+- **Styling**: Tailwind CSS
+- **Authentication**: Firebase Auth
+- **Database**: Firebase Realtime Database
+- **AI**: Google Gemini Pro
+- **Deployment**: Vercel
+- **Monitoring**: Discord Bot
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v18 atau lebih baru)
+- npm atau yarn
+- Firebase account
+- Google AI (Gemini) API key
+- Discord Bot (untuk monitoring)
+
+### Installation
+
+1. Clone repository
+bash
+git clone https://github.com/yourusername/forecast-web.git
+cd forecast-web
+
+2. Install dependencies
+bash
+npm install
+atau
+yarn install
+
+3. Setup environment variables
+bash
+cp .env.example .env.local
+
+4. Isi environment variables yang dibutuhkan di `.env.local`:
+plaintext
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
+GEMINI_API_KEY=
+DISCORD_BOT_TOKEN=
+DISCORD_CHANNEL_ID=
+
+5. Jalankan development server
+bash
 npm run dev
-# or
+atau
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📱 Fitur Utama
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Ramalan Zodiak
+- Ramalan harian untuk 12 zodiak
+- Mencakup aspek karir, cinta, kesehatan, dan tips
+- Profil zodiak lengkap dengan elemen, planet, dan karakteristik
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Pembacaan Tarot
+- Spread 3 kartu (Past, Present, Future)
+- Interpretasi mendalam berbasis AI
+- 78 kartu tarot lengkap dengan makna
 
-## Learn More
+### Sistem Multi-bahasa
+- Dukungan bahasa Indonesia dan Inggris
+- Penyimpanan preferensi bahasa
+- Konten dinamis sesuai bahasa
 
-To learn more about Next.js, take a look at the following resources:
+## 🔒 Security
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Autentikasi pengguna wajib
+- Rate limiting untuk API calls
+- Validasi input ketat
+- Caching untuk optimasi performa
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🤝 Contributing
 
-## Deploy on Vercel
+Kontribusi selalu diterima! Silakan buat pull request atau laporkan issues.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Fork repository
+2. Buat branch fitur (`git checkout -b feature/AmazingFeature`)
+3. Commit perubahan (`git commit -m 'Add some AmazingFeature'`)
+4. Push ke branch (`git push origin feature/AmazingFeature`)
+5. Buat Pull Request
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## 📞 Contact
+
+Your Name - [@yourusername](https://instagram.com//akmlfy_
+
+Project Link: [https://github.com/yourusername/forecast-web](https://github.com/yourusername/forecast-web)
+
+## 🙏 Acknowledgments
+
+- [Next.js](https://nextjs.org/)
+- [Firebase](https://firebase.google.com/)
+- [Google Gemini](https://ai.google.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Vercel](https://vercel.com/)
+
+---
+
+Made with ❤️ by [Your Name](https://github.com/yourusername)

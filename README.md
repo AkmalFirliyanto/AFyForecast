@@ -107,7 +107,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📞 Contact
 
-Your Name - [@yourusername](https://instagram.com//akmlfy_
+Your Name - [@yourusername](https://instagram.com//akmlfy_)
 
 Project Link: [https://github.com/yourusername/forecast-web](https://github.com/yourusername/forecast-web)
 

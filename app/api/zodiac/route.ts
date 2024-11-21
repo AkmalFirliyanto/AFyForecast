@@ -86,6 +86,20 @@ export async function POST(req: Request) {
       }), { status: 429 });
     }
 
+    // Tambahkan log untuk debugging
+    console.log('Processing zodiac request:', {
+      userId,
+      language,
+      type,
+      zodiac
+    });
+
+    // Log environment variables (jangan log API key di production!)
+    console.log('Environment check:', {
+      hasMistralKey: !!process.env.MISTRAL_API_KEY,
+      nodeEnv: process.env.NODE_ENV
+    });
+
     // Jika request untuk zodiak
     if (type === 'zodiac' && zodiac) {
       console.log('Processing zodiac request for:', zodiac);

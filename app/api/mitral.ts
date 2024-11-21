@@ -10,6 +10,9 @@ export async function generateText(prompt: string, maxRetries = 3) {
   
   while (attempt < maxRetries) {
     try {
+      console.log('Attempting Mistral API call...');
+      console.log('API Key exists:', !!process.env.MISTRAL_API_KEY);
+      
       const response = await mistral.chat.complete({
         model: "mistral-medium",
         messages: [
@@ -19,6 +22,8 @@ export async function generateText(prompt: string, maxRetries = 3) {
         maxTokens: 1000
       });
       
+      console.log('Mistral API Response:', response);
+      
       const text = response.choices?.[0]?.message?.content;
       if (!text) {
         throw new Error('Respons kosong dari AI');
@@ -27,6 +32,11 @@ export async function generateText(prompt: string, maxRetries = 3) {
       return text;
 
     } catch (error: any) {
+      console.error('Mistral API Error:', {
+        message: error.message,
+        name: error.name,
+        stack: error.stack
+      });
       lastError = error;
       attempt++;
       

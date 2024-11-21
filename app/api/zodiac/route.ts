@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { getCachedForecast, setCachedForecast } from '@/lib/cache'
 import { allTarotCards } from '@/data/tarot'
 import { getCachedTarotInterpretation, setCachedTarotInterpretation } from '@/lib/cache'
-import { generateText } from '../gemini'
+import { generateText } from '../mitral'
 import { FirebaseRateLimiter } from '@/lib/rate-limiter';
 import { discordBot } from '@/lib/discord-bot';
 import { shuffleCards } from '@/lib/tarot-utils'
@@ -163,17 +163,16 @@ export async function POST(req: Request) {
         const match = text.match(regex);
         return match ? match[1].trim() : '';
       };
-
       if (language === 'id') {
-        forecast.career = extractSection(response, 'Karir');
-        forecast.love = extractSection(response, 'Asmara');
-        forecast.health = extractSection(response, 'Kesehatan');
-        forecast.tips = extractSection(response, 'Tips');
+        forecast.career = extractSection(response as string, 'Karir');
+        forecast.love = extractSection(response as string, 'Asmara'); 
+        forecast.health = extractSection(response as string, 'Kesehatan');
+        forecast.tips = extractSection(response as string, 'Tips');
       } else {
-        forecast.career = extractSection(response, 'Career');
-        forecast.love = extractSection(response, 'Love');
-        forecast.health = extractSection(response, 'Health');
-        forecast.tips = extractSection(response, 'Tips');
+        forecast.career = extractSection(response as string, 'Career');
+        forecast.love = extractSection(response as string, 'Love');
+        forecast.health = extractSection(response as string, 'Health');
+        forecast.tips = extractSection(response as string, 'Tips');
       }
 
       // Validasi hasil
@@ -292,11 +291,15 @@ export async function POST(req: Request) {
           throw new Error('Tidak ada interpretasi yang dihasilkan');
         }
 
-        await setCachedTarotInterpretation(cards, interpretation);
-        return NextResponse.json({ interpretation });
+        if (typeof interpretation === 'string') {
+          await setCachedTarotInterpretation(cards, interpretation);
+          return NextResponse.json({ interpretation });
+        } else {
+          throw new Error('Interpretasi harus berupa string');
+        }
         
       } catch (error) {
-        console.error('Error generating tarot interpretation:', error);
+        console.error('Error dalam menghasilkan interpretasi tarot:', error);
         return NextResponse.json({ 
           error: isEnglish ? 
             'Failed to generate tarot interpretation' : 

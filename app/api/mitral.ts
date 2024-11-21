@@ -1,6 +1,8 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { Mistral } from '@mistralai/mistralai';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+const mistral = new Mistral({
+  apiKey: process.env.MISTRAL_API_KEY || ''
+});
 
 export async function generateText(prompt: string, maxRetries = 3) {
   let attempt = 0;
@@ -8,13 +10,18 @@ export async function generateText(prompt: string, maxRetries = 3) {
   
   while (attempt < maxRetries) {
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const text = response.text();
+      const response = await mistral.chat.complete({
+        model: "mistral-medium",
+        messages: [
+          { role: "user", content: prompt }
+        ],
+        temperature: 0.7,
+        maxTokens: 1000
+      });
       
+      const text = response.choices?.[0]?.message?.content;
       if (!text) {
-        throw new Error('Empty response from AI');
+        throw new Error('Respons kosong dari AI');
       }
       
       return text;
@@ -23,7 +30,7 @@ export async function generateText(prompt: string, maxRetries = 3) {
       lastError = error;
       attempt++;
       
-      console.error(`Attempt ${attempt} failed:`, {
+      console.error(`Percobaan ${attempt} gagal:`, {
         message: error.message,
         name: error.name,
         stack: error.stack
@@ -45,7 +52,7 @@ export async function generateText(prompt: string, maxRetries = 3) {
         const baseDelay = isOverloaded ? 5000 : 1000;
         const delayMs = Math.min(baseDelay * attempt, 15000);
         
-        console.log(`Retrying in ${delayMs}ms... (${isOverloaded ? 'Server Overloaded' : 'Normal Retry'})`);
+        console.log(`Mencoba ulang dalam ${delayMs}ms... (${isOverloaded ? 'Server Kelebihan Beban' : 'Retry Normal'})`);
         await new Promise(resolve => setTimeout(resolve, delayMs));
         continue;
       }

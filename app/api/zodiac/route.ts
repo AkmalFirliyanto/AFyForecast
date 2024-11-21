@@ -55,15 +55,9 @@ function extractSection(text: string, sectionName: string, language: string): st
 // API Zodiak
 export async function POST(req: Request) {
   try {
-    const userId = req.headers.get('user-id');
+    const userId = req.headers.get('user-id') || 'default-user';
     const language = req.headers.get('Accept-Language') || 'id';
     
-    if (!userId) {
-      return new Response(JSON.stringify({
-        error: 'User ID is required'
-      }), { status: 400 });
-    }
-
     const body = await req.json();
     const { type, zodiac, cards } = body;
     console.log('Request body:', { type, zodiac, cards });
@@ -71,20 +65,31 @@ export async function POST(req: Request) {
     // Validasi input
     if (!type) {
       return new Response(JSON.stringify({
-        error: 'Type is required'
+        error: 'Type diperlukan'
       }), { status: 400 });
     }
 
-    const rateLimiter = new FirebaseRateLimiter();
-    const hasLimit = await rateLimiter.checkUserLimit(userId);
+    // Tambahkan try-catch khusus untuk rate limiter
+    let hasLimit = true;
+    try {
+      const rateLimiter = new FirebaseRateLimiter();
+      hasLimit = await rateLimiter.checkUserLimit(userId);
+    } catch (error) {
+      console.error('Rate limit check error:', error);
+      // Lanjutkan eksekusi jika rate limit check gagal
+    }
     
     if (!hasLimit) {
-      const remaining = await rateLimiter.getRemainingTime(userId);
       return new Response(JSON.stringify({
-        error: 'Rate limit exceeded',
-        remaining
+        error: 'Batas permintaan terlampaui',
+        remaining: 3600 // Default 1 jam
       }), { status: 429 });
     }
+
+    // Tambahkan timeout untuk Mistral API call
+    const timeoutMs = 15000; // 15 detik
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
     // Tambahkan log untuk debugging
     console.log('Processing zodiac request:', {
@@ -117,16 +122,16 @@ export async function POST(req: Request) {
         ? `Buat ramalan zodiak ${zodiac} untuk hari ini dengan format yang TEPAT seperti berikut:
 
            Karir: 
-           [Berikan ramalan detail tentang karir dan keuangan dalam 2-3 kalimat]
+           [Berikan ramalan detail tentang karir dan keuangan dalam 1-2 kalimat]
 
            Asmara: 
-           [Berikan ramalan detail tentang cinta dan hubungan dalam 2-3 kalimat]
+           [Berikan ramalan detail tentang cinta dan hubungan dalam 1-2 kalimat]
 
            Kesehatan: 
-           [Berikan ramalan detail tentang kesehatan dan energi dalam 2-3 kalimat]
+           [Berikan ramalan detail tentang kesehatan dan energi dalam 1-2 kalimat]
 
            Tips: 
-           [Berikan 2-3 saran spesifik dan praktis]
+           [Berikan 1-2 saran spesifik dan praktis]
 
            Karakteristik zodiak yang perlu dipertimbangkan:
            - Elemen: ${zodiacProfile.element.id}
@@ -137,16 +142,16 @@ export async function POST(req: Request) {
         : `Create a detailed horoscope for ${zodiac} today using EXACTLY this format:
 
            Career: 
-           [Provide detailed career and financial predictions in 2-3 sentences]
+           [Provide detailed career and financial predictions in 1-2 sentences]
 
            Love: 
-           [Provide detailed love and relationship predictions in 2-3 sentences]
+           [Provide detailed love and relationship predictions in 1-2 sentences]
 
            Health: 
-           [Provide detailed health and energy predictions in 2-3 sentences]
+           [Provide detailed health and energy predictions in 1-2 sentences]
 
            Tips: 
-           [Provide 2-3 specific and practical suggestions]
+           [Provide 1-2 specific and practical suggestions]
 
            Consider these zodiac characteristics:
            - Element: ${zodiacProfile.element.en}

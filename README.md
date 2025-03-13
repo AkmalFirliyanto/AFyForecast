@@ -17,7 +17,7 @@ AFy Forecast adalah aplikasi web ramalan zodiak dan tarot yang ditenagai oleh AI
 - **Styling**: Tailwind CSS
 - **Authentication**: Firebase Auth
 - **Database**: Firebase Realtime Database
-- **AI**: Google Gemini Pro
+- **AI**: Mistral Ai
 - **Deployment**: Vercel
 - **Monitoring**: Discord Bot
 
@@ -115,7 +115,6 @@ Project Link: https://github.com/AkmalFirliyanto/AFyForecast.git
 
 - [Next.js](https://nextjs.org/)
 - [Firebase](https://firebase.google.com/)
-- [Google Gemini](https://ai.google.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Vercel](https://vercel.com/)
 
